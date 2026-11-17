@@ -1,0 +1,48 @@
+# --- Java / Maven ---
+**/target/
+*.class
+*.log
+*.jar
+*.war
+*.ear
+.mvn/
+hs_err_pid*
+
+# --- Node.js / Vite / React (frontend-web) ---
+**/node_modules/
+**/dist/
+**/dist-ssr/
+*.local
+.npm
+.eslintcache
+
+# --- IDEs & Editors ---
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+*.swo
+*~
+
+# --- OS Generated Files ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# --- Environment & Secrets ---
+.env
+*.env
+*.secret
+credentials.json
+
+# --- Kubernetes / Helm / Local Tooling ---
+*.bak
+*.tmp
+.kube/
