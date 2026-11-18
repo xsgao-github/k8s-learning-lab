@@ -1,0 +1,7 @@
+**/target
+.git
+.gitignore
+.idea
+.vscode
+docs
+frontend-web/node_modules

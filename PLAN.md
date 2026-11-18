@@ -38,6 +38,7 @@ Execute this plan module-by-module. Paste the prompt for each milestone into Cla
 <a id="module-2"></a>
 ## Module 2: PostgreSQL & the First Deployable Slice
 **Goal:** Deliver a working catalog/cart API backed by PostgreSQL, containerized and deployed to `kind`. Order submission returns an explicit `501` until Module 3 adds Kafka and payment.
+**Guide:** [docs/module-02-order-service.md](docs/module-02-order-service.md)
 
 ### Prompt to Use:
 > "Implement Module 2:
@@ -47,8 +48,8 @@ Execute this plan module-by-module. Paste the prompt for each milestone into Cla
 > 4. Load the image into `kind`, apply the manifests, and verify the API through the Ingress."
 
 ### Verification:
-- `mvn test -pl order-service` passes.
-- `kubectl apply -f infra/k8s/` brings PostgreSQL and `order-service` pods to Ready.
+- `mvn -q -pl order-service -am test` passes.
+- `kubectl apply -f infra/k8s/namespace.yaml -f infra/k8s/app-config.yaml -f infra/k8s/postgres.yaml -f infra/k8s/order-service.yaml -f infra/k8s/ingress.yaml` brings PostgreSQL and `order-service` pods to Ready.
 - `http://localhost/api/products` returns the seeded catalog; adding and removing cart items works and persists.
 - `POST /api/orders` returns `501` with a clear message; no pod crashes.
 
@@ -146,3 +147,23 @@ Execute this plan module-by-module. Paste the prompt for each milestone into Cla
 - A deliberately failing unit test fails the workflow at the test step; a broken readiness probe fails it at the rollout step.
 - The deployed image tag matches the commit SHA.
 - The smoke test confirms `PENDING_PAYMENT` -> `PAID` -> `PRINTED` inside the CI cluster.
+
+---
+
+<a id="module-8"></a>
+## Module 8: GitOps with Argo CD
+**Goal:** Deploy the Helm chart from Git and let Argo CD continuously reconcile the cluster toward the repository.
+
+### Prompt to Use:
+> "Implement Module 8:
+> 1. Install Argo CD into the `argocd` namespace using the official stable manifest. Expose the UI with `kubectl port-forward` for the lab.
+> 2. Create `infra/gitops/application.yaml`, an Argo CD `Application` pointing at `https://github.com/xsgao-github/k8s-learning-lab.git`, path `infra/helm/coffee-platform`, destination namespace `k8s-lab`, with automated sync, prune, and self-heal.
+> 3. Apply the Application and wait for `Synced` and `Healthy`.
+> 4. Demonstrate drift correction: delete a Deployment or scale it manually, then observe Argo CD restore it. Commit a values change, sync it, and revert through Git.
+> 5. Keep CI as the validation gate and Argo CD as the deployment path. If the repository is private, register repository credentials as a Secret."
+
+### Verification:
+- The Application reports `Synced` and `Healthy`; the UI lists the chart's resources.
+- Manually deleting or scaling a managed resource is corrected automatically.
+- A committed chart or values change is deployed; reverting the commit restores the previous state.
+- Removing a resource from Git prunes it from the cluster.

@@ -155,7 +155,7 @@ This project is organized as a series of modules. Module 0 sets up the cluster; 
 
 - [x] **Module 0**: Environment Bootstrap & Baseline Verification → [docs/module-00-setup.md](docs/module-00-setup.md)
 - [x] **Module 1**: Multi-Module Maven Skeleton & Shared Event Contracts → [docs/module-01-common-events.md](docs/module-01-common-events.md)
-- [ ] **Module 2**: PostgreSQL & the First Deployable Slice → [PLAN.md](PLAN.md#module-2)
+- [x] **Module 2**: PostgreSQL, Order Service & the First Deployable Slice → [docs/module-02-order-service.md](docs/module-02-order-service.md)
 - [ ] **Module 3**: Kafka, Order Placement & the Event Flow → [PLAN.md](PLAN.md#module-3)
 - [ ] **Module 4**: React Frontend & Ingress → [PLAN.md](PLAN.md#module-4)
 - [ ] **Module 5**: Resilience, Autoscaling & Interview Drills → [PLAN.md](PLAN.md#module-5)
