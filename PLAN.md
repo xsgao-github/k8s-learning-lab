@@ -25,6 +25,7 @@ Execute this plan module-by-module. Paste the prompt for each milestone into Cla
 <a id="module-1"></a>
 ## Module 1: Multi-Module Maven Skeleton & Shared Event Contracts
 **Goal:** Establish the root parent POM, module structure, and immutable Java `record` event schemas.
+**Guide:** [docs/module-01-common-events.md](docs/module-01-common-events.md)
 
 ### Prompt to Use:
 > "Read `CLAUDE.md` and `README.md`. Initialize Module 1: create the root Maven `pom.xml` (Spring Boot 3.3.x, Java 17) with four backend modules (`common-events`, `order-service`, `payment-service`, `print-service`). In `common-events`, define Java `record` classes for `OrderPlacedEvent`, `PaymentProcessedEvent`, and `PrintCompletedEvent` (including `eventId`, `orderId`, `userId`, `totalAmount`, `status`, and `timestamp`). Verify the entire reactor builds cleanly with `mvn clean compile`."
