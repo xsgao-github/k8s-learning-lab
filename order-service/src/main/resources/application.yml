@@ -9,6 +9,16 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: update
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    consumer:
+      auto-offset-reset: earliest
+    admin:
+      fail-fast: true
+  task:
+    scheduling:
+      pool:
+        size: 1
   lifecycle:
     timeout-per-shutdown-phase: 20s
 

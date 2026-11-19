@@ -57,4 +57,9 @@ public class CartService {
         cartItems.delete(item);
         return getCart(userId);
     }
+
+    @Transactional
+    public void clear(String userId) {
+        cartItems.deleteByUserId(userId);
+    }
 }

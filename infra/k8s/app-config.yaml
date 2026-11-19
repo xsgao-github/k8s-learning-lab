@@ -4,7 +4,8 @@ metadata:
   name: app-config
   namespace: k8s-lab
   labels:
-    app.kubernetes.io/name: order-service
+    app.kubernetes.io/name: app-config
     app.kubernetes.io/part-of: coffee-platform
 data:
   DB_URL: jdbc:postgresql://postgres:5432/coffee
+  KAFKA_BOOTSTRAP_SERVERS: kafka:9092

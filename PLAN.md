@@ -58,6 +58,7 @@ Execute this plan module-by-module. Paste the prompt for each milestone into Cla
 <a id="module-3"></a>
 ## Module 3: Kafka, Order Placement & the Event Flow
 **Goal:** Add Kafka to the cluster, complete order creation, and deploy the stateless payment and print consumers. The full event flow works in `kind`.
+**Guide:** [docs/module-03-payment-print-service.md](docs/module-03-payment-print-service.md)
 
 ### Prompt to Use:
 > "Implement Module 3:

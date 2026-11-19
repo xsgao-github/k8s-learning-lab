@@ -125,7 +125,7 @@ Eight tests: controller slices check routes, JSON, and validation; Mockito tests
 | File | Objects |
 |---|---|
 | `namespace.yaml` | `Namespace k8s-lab` |
-| `app-config.yaml` | `ConfigMap app-config` with `DB_URL` |
+| `app-config.yaml` | `ConfigMap app-config` with `DB_URL`,  `KAFKA_BOOTSTRAP_SERVERS` |
 | `postgres.yaml` | `Secret`, `Service`, `StatefulSet`, PVC |
 | `order-service.yaml` | `Deployment` (2 replicas), `Service` |
 | `ingress.yaml` | `Ingress coffee-platform` |

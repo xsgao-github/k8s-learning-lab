@@ -51,10 +51,10 @@ The two worker nodes (`k8s-lab-worker`, `k8s-lab-worker2`) run the application w
 1. **`order-service` (Port 8081):**
    * Exposes REST APIs to browse product catalog, manage shopping cart items, and submit orders (`POST /api/orders`).
    * Persists catalog, carts, and order state (`PENDING_PAYMENT`, `PAID`, `PAYMENT_FAILED`, `PRINTED`) in PostgreSQL.
-   * Publishes `OrderPlacedEvent` to Kafka topic `order.placed`.
+   * Publishes `OrderPlacedEvent` to Kafka topic `order.placed` through a transactional outbox written in the same PostgreSQL transaction as the order.
    * Listens to `payment.processed` and `print.completed` to update order lifecycle status.
 2. **`payment-service` (Port 8082):**
-   * Consumes `order.placed` events idempotently (deduplicated by `orderId`).
+   * Consumes `order.placed` events. The decision is deterministic and `order-service` applies each state transition exactly once, so duplicate deliveries are safe.
    * Simulates payment authorization and publishes `PaymentProcessedEvent` (`SUCCEEDED` / `FAILED`) to `payment.processed`.
 3. **`print-service` (Port 8083):**
    * Consumes `payment.processed` (only when status is `SUCCEEDED`).
@@ -156,7 +156,7 @@ This project is organized as a series of modules. Module 0 sets up the cluster; 
 - [x] **Module 0**: Environment Bootstrap & Baseline Verification → [docs/module-00-setup.md](docs/module-00-setup.md)
 - [x] **Module 1**: Multi-Module Maven Skeleton & Shared Event Contracts → [docs/module-01-common-events.md](docs/module-01-common-events.md)
 - [x] **Module 2**: PostgreSQL, Order Service & the First Deployable Slice → [docs/module-02-order-service.md](docs/module-02-order-service.md)
-- [ ] **Module 3**: Kafka, Order Placement & the Event Flow → [PLAN.md](PLAN.md#module-3)
+- [x] **Module 3**: Kafka, Payment & Print Service → [docs/module-03-payment-print-service.md](docs/module-03-payment-print-service.md)
 - [ ] **Module 4**: React Frontend & Ingress → [PLAN.md](PLAN.md#module-4)
 - [ ] **Module 5**: Resilience, Autoscaling & Interview Drills → [PLAN.md](PLAN.md#module-5)
 - [ ] **Module 6**: Helm Packaging & Release Lifecycle → [PLAN.md](PLAN.md#module-6)
