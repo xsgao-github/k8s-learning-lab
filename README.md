@@ -158,7 +158,7 @@ This project is organized as a series of modules. Module 0 sets up the cluster; 
 - [x] **Module 2**: PostgreSQL, Order Service & the First Deployable Slice → [docs/module-02-order-service.md](docs/module-02-order-service.md)
 - [x] **Module 3**: Kafka, Payment & Print Service → [docs/module-03-payment-print-service.md](docs/module-03-payment-print-service.md)
 - [x] **Module 4**: Ingress & React Frontend → [docs/module-04-frontend.md](docs/module-04-frontend.md)
-- [ ] **Module 5**: Resilience, Autoscaling & Interview Drills → [PLAN.md](PLAN.md#module-5)
+- [x] **Module 5**: Resilience & Autoscaling → [docs/module-05-resilience-autoscaling.md](docs/module-05-resilience-autoscaling.md)
 - [ ] **Module 6**: Helm Packaging & Release Lifecycle → [PLAN.md](PLAN.md#module-6)
 - [ ] **Module 7**: CI Pipeline (GitHub Actions) → [PLAN.md](PLAN.md#module-7)
 - [ ] **Module 8**: GitOps with Argo CD → [PLAN.md](PLAN.md#module-8)

@@ -114,6 +114,33 @@ kubectl wait --namespace ingress-nginx --for=condition=ready pod `
     --selector=app.kubernetes.io/component=controller --timeout=180s
 if ($LASTEXITCODE -ne 0) { throw 'The ingress controller did not become ready.' }
 
+Write-Host '==> Installing metrics-server...'
+$metricsServerManifest = 'https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.9.1/components.yaml'
+kubectl apply -f $metricsServerManifest
+if ($LASTEXITCODE -ne 0) { throw 'Failed to apply the metrics-server manifest.' }
+
+$metricsServerArgs = kubectl get deployment metrics-server -n kube-system -o jsonpath='{.spec.template.spec.containers[0].args}'
+if ($LASTEXITCODE -ne 0) { throw 'Failed to read the metrics-server deployment.' }
+if ($metricsServerArgs -notmatch '--kubelet-insecure-tls') {
+    Write-Host '==> Allowing metrics-server to use the kind kubelet certificate...'
+    kubectl patch deployment metrics-server -n kube-system --type=json `
+        -p '[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]'
+    if ($LASTEXITCODE -ne 0) { throw 'Failed to patch metrics-server with --kubelet-insecure-tls.' }
+}
+
+Write-Host '==> Waiting for metrics-server to become ready...'
+kubectl rollout status deployment/metrics-server -n kube-system --timeout=180s
+if ($LASTEXITCODE -ne 0) { throw 'metrics-server did not become ready.' }
+kubectl wait --for=condition=Available apiservice/v1beta1.metrics.k8s.io --timeout=180s
+if ($LASTEXITCODE -ne 0) { throw 'The metrics API did not become available.' }
+
+Write-Host '==> Checking node metrics...'
+for ($attempt = 1; $attempt -le 12; $attempt++) {
+    kubectl top nodes 2>$null
+    if ($LASTEXITCODE -eq 0) { break }
+    Start-Sleep -Seconds 5
+}
+
 Write-Host '==> Verifying cluster...'
 kubectl get nodes
 kubectl get pods -n ingress-nginx

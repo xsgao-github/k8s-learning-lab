@@ -96,15 +96,18 @@ Execute this plan module-by-module. Paste the prompt for each milestone into Cla
 ---
 
 <a id="module-5"></a>
-## Module 5: Resilience, Autoscaling & Interview Drills
+## Module 5: Resilience & Autoscaling
 **Goal:** Practice day-two Kubernetes operations against the running platform.
+**Guide:** [docs/module-05-resilience-autoscaling.md](docs/module-05-resilience-autoscaling.md)
 
 ### Prompt to Use:
 > "Implement Module 5:
 > 1. Install metrics-server in `kind` with `--kubelet-insecure-tls` if it is not present.
 > 2. Add `infra/k8s/hpa.yaml` for `order-service` (min 2, max 5 replicas, target CPU 70%) and `infra/k8s/pdb.yaml` for the same Deployment.
-> 3. Write `scripts/smoke-test.sh` that browses products, adds items to the cart, places a valid order and a `> 1000` declined order, and polls `GET /api/orders/{id}` until the terminal status.
-> 4. Verify scaling and disruption behavior under load."
+> 3. Add a `preStop` hook and an explicit termination grace period to `order-service` so pod removal does not drop requests.
+> 4. Write `scripts/module-05-smoke-test.ps1` that browses products, adds items to the cart, places a valid order and a `> 1000` declined order, polls `GET /api/orders/{id}` until the terminal status, and deletes an order-service pod under load.
+> 5. Write `scripts/module-05-drills.ps1`, an interactive walkthrough that waits for Enter between the HPA scale-up and node-drain steps.
+> 6. Verify scaling and disruption behavior under load."
 
 ### Verification:
 - `kubectl get hpa` shows the order-service scaling toward the CPU target.
