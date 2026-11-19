@@ -79,6 +79,7 @@ Execute this plan module-by-module. Paste the prompt for each milestone into Cla
 <a id="module-4"></a>
 ## Module 4: React Frontend & Ingress
 **Goal:** Build and deploy the browser client, then route `/` to it and `/api` to the backend through the existing Ingress.
+**Guide:** [docs/module-04-frontend.md](docs/module-04-frontend.md)
 
 ### Prompt to Use:
 > "Implement Module 4:

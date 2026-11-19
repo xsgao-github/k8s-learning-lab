@@ -157,7 +157,7 @@ This project is organized as a series of modules. Module 0 sets up the cluster; 
 - [x] **Module 1**: Multi-Module Maven Skeleton & Shared Event Contracts → [docs/module-01-common-events.md](docs/module-01-common-events.md)
 - [x] **Module 2**: PostgreSQL, Order Service & the First Deployable Slice → [docs/module-02-order-service.md](docs/module-02-order-service.md)
 - [x] **Module 3**: Kafka, Payment & Print Service → [docs/module-03-payment-print-service.md](docs/module-03-payment-print-service.md)
-- [ ] **Module 4**: React Frontend & Ingress → [PLAN.md](PLAN.md#module-4)
+- [x] **Module 4**: Ingress & React Frontend → [docs/module-04-frontend.md](docs/module-04-frontend.md)
 - [ ] **Module 5**: Resilience, Autoscaling & Interview Drills → [PLAN.md](PLAN.md#module-5)
 - [ ] **Module 6**: Helm Packaging & Release Lifecycle → [PLAN.md](PLAN.md#module-6)
 - [ ] **Module 7**: CI Pipeline (GitHub Actions) → [PLAN.md](PLAN.md#module-7)
